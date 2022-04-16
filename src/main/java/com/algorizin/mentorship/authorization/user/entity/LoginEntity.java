@@ -1,10 +1,12 @@
 package com.algorizin.mentorship.authorization.user.entity;
 
+import com.algorizin.mentorship.authorization.role.entity.RoleEntity;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -30,9 +32,6 @@ public class LoginEntity {
     @Column(name = "role")
     private String role;
 
-    @Column(name = "roleoid")
-    private String roleOid;
-
     @Column(name = "status")
     private String status;
 
@@ -41,4 +40,11 @@ public class LoginEntity {
 
     @Column(name = "updatedon")
     private Timestamp updatedOn;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinTable(name = "userrole",
+            joinColumns = @JoinColumn(name = "loginoid", referencedColumnName = "oid"),
+            inverseJoinColumns = @JoinColumn(name = "roleoid", referencedColumnName = "roleoid")
+    )
+    private Collection<RoleEntity> roles;
 }
