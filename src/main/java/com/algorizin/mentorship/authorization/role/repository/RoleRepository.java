@@ -14,7 +14,7 @@ public interface RoleRepository extends JpaRepository<RoleEntity, String> {
     List<RoleEntity> findAll();
 
     @NotFound(action = NotFoundAction.IGNORE)
-    RoleEntity findByOid(String oid);
+    RoleEntity findByRoleOid(String roleOid);
 
     @NotFound(action = NotFoundAction.IGNORE)
     RoleEntity findByRoleName(String roleName);

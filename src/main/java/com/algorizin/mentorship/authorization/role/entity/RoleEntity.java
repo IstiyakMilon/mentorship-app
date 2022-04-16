@@ -18,8 +18,8 @@ public class RoleEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "oid", updatable = false, nullable = false)
-    private String oid;
+    @Column(name = "roleoid", updatable = false, nullable = false)
+    private String roleOid;
 
     @Column(name = "rolename")
     private String roleName;
@@ -42,10 +42,9 @@ public class RoleEntity {
     @Column(name = "updatedon")
     private Timestamp updatedOn;
 
-
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(name = "rolepermission",
-            joinColumns = @JoinColumn(name = "roleoid", referencedColumnName = "oid"),
+            joinColumns = @JoinColumn(name = "roleoid", referencedColumnName = "roleoid"),
             inverseJoinColumns = @JoinColumn(name = "permissionoid", referencedColumnName = "permissionoid")
     )
     private Collection<PermissionEntity> permissions;

@@ -19,10 +19,7 @@ public class PermissionEntity {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    @Column(name = "oid", updatable = false, nullable = false)
-    private String oid;
-
-    @Column(name="permissionoid")
+    @Column(name = "permissionoid", updatable = false, nullable = false)
     private String permissionOid;
 
     @Column(name="permissionname")

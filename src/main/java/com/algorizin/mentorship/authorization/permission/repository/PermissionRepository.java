@@ -15,7 +15,7 @@ public interface PermissionRepository extends JpaRepository<PermissionEntity, St
     List<PermissionEntity> findAll();
 
     @NotFound(action = NotFoundAction.IGNORE)
-    PermissionEntity findByOid(String oid);
+    PermissionEntity findByPermissionOid(String permissionOid);
 
     @NotFound(action = NotFoundAction.IGNORE)
     PermissionEntity findByPermissionName(String permissionName);
