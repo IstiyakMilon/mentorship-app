@@ -14,8 +14,12 @@ It has three roles- Student, Mentor and Admin
 JRE 1.8, Gradle 6.8.1+, PostgreSQL 10.0+
 
 ## Geting Started
+
+- Use `gradle clean build` in the project root directory to build the project. 
+- Run the main class, `com.algorizin.mentorship.MentorshipAppApplication` to start the application.
+
 You have to authenticate first to access other api. You have to use "/authenticate" endpoint is to generate jwt token.
-For this run the following curl command using "/authenticate" endpoint. You will get
+For this, you have to run the following curl command using "/authenticate" endpoint. You will get
 a token.
 ```
 curl --request POST -H "Content-Type: application/json" --data '{"userId":"admin","password":"asdf12"}' --url "http://localhost:8080/authenticate"
