@@ -1,7 +1,7 @@
 # Student mentoring- app using Spring Boot and JWT
 
 This repo hosts the source code for student assesment app.
-I
+
 It has three roles-
 * Student: Can submit an assessment to particular mentor.
 * Mentor: Can grade an assessment.
