@@ -2,7 +2,7 @@
 
 This repo hosts the source code for student assesment app.
 
-It has three roles-
+It has three roles- Student, Mentor and Admin
 * Student: Can submit an assessment to particular mentor.
 * Mentor: Can grade an assessment.
 * Admin: Can add/edit/delete, assessment, users, submissions and grades.
