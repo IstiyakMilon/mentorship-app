@@ -1,4 +1,4 @@
-package com.algorizin.mentorship.assesment.dto;
+package com.algorizin.mentorship.assesmentsubmission.dto;
 
 import lombok.*;
 
@@ -7,7 +7,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AssesmentResponseDTO {
+public class AssesmentSubmissionResponseDTO {
     private String oid;
     private String message;
 }

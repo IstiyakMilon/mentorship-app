@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
@@ -25,9 +26,13 @@ public class AssesmentController {
     private AssesmentService assesmentService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<AssesmentEntity>> getAssesmentList() {
+    public ResponseEntity<List<AssesmentEntity>> getAssesmentList(
+            Authentication authentication
+    ) {
         try {
             log.info("Request received for office list");
+            log.info("Authentication: {}", authentication.getName());
+            log.info("Authentication: {}", authentication.getPrincipal());
             List<AssesmentEntity> response = assesmentService.getAllAssesment();
             log.info("Response send for Assesment list: {}", response);
             return new ResponseEntity<>(response, HttpStatus.OK);
@@ -40,6 +45,7 @@ public class AssesmentController {
     @GetMapping("/{OID}")
     public ResponseEntity<AssesmentEntity> getOfficebyOid(
 //            @AuthenticationPrincipal Jwt principal,
+            Authentication authentication,
             @PathVariable("OID") @NotEmpty String oid
     ) {
         try {
@@ -55,6 +61,7 @@ public class AssesmentController {
 
     @PostMapping("/save")
     public ResponseEntity<AssesmentResponseDTO> createAssesment(
+            Authentication authentication,
             @Valid @RequestBody AssesmentRequestDTO requestDTO
     ) {
         try {
@@ -70,6 +77,7 @@ public class AssesmentController {
 
     @PutMapping("/{OID}")
     public ResponseEntity<AssesmentResponseDTO> updateAssesment(
+            Authentication authentication,
             @Valid @RequestBody AssesmentRequestDTO requestDTO,
             @PathVariable("OID") @NotEmpty String oid) {
         try {

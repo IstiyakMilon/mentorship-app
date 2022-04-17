@@ -3,7 +3,6 @@ package com.algorizin.mentorship.authorization.jwt.config;
 import com.algorizin.mentorship.authorization.permission.entity.PermissionEntity;
 import com.algorizin.mentorship.authorization.permission.repository.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.context.annotation.Bean;
@@ -37,23 +36,23 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-//
+
     @Autowired
     private UserDetailsService jwtUserDetailsService;
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
-//
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(jwtUserDetailsService).passwordEncoder(encoder);
     }
-//
+
 //    @Bean
 //    public BCryptPasswordEncoder bCryptPasswordEncoder() {
 //        return new BCryptPasswordEncoder();
 //    }
-//
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -63,6 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         List<PermissionEntity> urlPermissionList = permissionRepository.findAll();
+
 //        http.cors().disable();
         httpSecurity.csrf().disable()
                 .authorizeRequests().antMatchers("/authenticate", "/register").permitAll()
@@ -73,8 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+
+        // Add a filter to validate the tokens with every request
+        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 //        for (PermissionEntity urlPermission : urlPermissionList) {
-//            if (urlPermission.getPermissionName().equalsIgnoreCase("all")) {
+//            if (urlPermission.getPermissionName().equalsIgnoreCase("All")) {
 //                httpSecurity.authorizeRequests().antMatchers(HttpMethod.valueOf(urlPermission.getMethod()), urlPermission.getUrl())
 //                        .permitAll();
 //            } else {
@@ -83,7 +86,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                        .hasAuthority(urlPermission.getPermissionName());
 //            }
 //        }
-        // Add a filter to validate the tokens with every request
-        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
